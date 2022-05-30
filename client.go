@@ -82,7 +82,7 @@ func NewOAuthClientCredentials(i, s string) *Client {
 
 	tok, err := conf.Token(ctx)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	a.token = *tok
 	return injectClient(a)
