@@ -110,11 +110,11 @@ func NewOAuth(i, s string) *Client {
 	var code string
 	fmt.Printf("Enter the code in the return URL: ")
 	if _, err := fmt.Scan(&code); err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	tok, err := conf.Exchange(ctx, code)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	a.token = *tok
 	return injectClient(a)
@@ -133,7 +133,7 @@ func NewOAuthWithCode(i, s, c string) (*Client, string) {
 
 	tok, err := conf.Exchange(ctx, c)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	a.token = *tok
 	return injectClient(a), tok.AccessToken
@@ -152,7 +152,7 @@ func NewBasicAuth(u, p string) *Client {
 func injectClient(a *auth) *Client {
 	bitbucketUrl, err := apiBaseUrl()
 	if err != nil {
-		log.Fatalf("invalid bitbucket url")
+		fmt.Println("invalid bitbucket url")
 	}
 	c := &Client{Auth: a, Pagelen: DEFAULT_PAGE_LENGTH, MaxDepth: DEFAULT_MAX_DEPTH,
 		apiBaseURL: bitbucketUrl, LimitPages: DEFAULT_LIMIT_PAGES}
